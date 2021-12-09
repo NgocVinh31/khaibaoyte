@@ -1,4 +1,6 @@
- <?php include "./ketnoi.php"?>
+ <?php include "./ketnoi.php";
+ session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,11 +48,11 @@
 
         <!-- làm phần main2 -->
         <div class="main2">
-            <form action="./add.php" enctype="multipart/form-data" method="get">
+            <form action="./add.php?maxacthuc=<?php echo $xacthuc?>" enctype="multipart/form-data" method="get">
                 <div class="main2_tick">
                     <div class="main2_tickLeft">
-                        <div class="main2_tickLeft_item "><input class="tick_Notnhanvien" type="radio" name="tick" value="benhnhan">Bệnh nhân/Người nhà</div>
-                        <div class="main2_tickLeft_item"><input class="tick_nhanvien"  type="radio" name="tick" value="nhanvien">Nhân viên bệnh viện</div>
+                        <div class="main2_tickLeft_item "><input class="tick_Notnhanvien" type="radio" name="tick" value="sinhvien">Sinh viên</div>
+                        <div class="main2_tickLeft_item"><input class="tick_nhanvien"  type="radio" name="tick" value="giaovien">Giáo viên</div>
                         <div class="main2_tickLeft_item tick_khach"><input class="tick_Notnhanvien" type="radio" name="tick" value="khach">Khách đến liên hệ công tác</div>
                     </div>
                     <div class="main2_tickRight">
@@ -229,7 +231,7 @@
                 <!-- phần làm nhập mã xác thực -->
                 <div class="main2_nhapma">
                     <p class="main2_nhapma_text1">Vui lòng nhập mã xác thực <span>(*)</span></p>
-                    <p class="main2_nhapma_text2">123456</p>
+                    <p class="main2_nhapma_text2"><?php echo $xacthuc=rand(100000, 999999);   $_SESSION["maxacthuc"]=$xacthuc?></p>
                     <input type="text" name="maxacthuc">
                 </div>
 
@@ -290,10 +292,26 @@
 
 
         });
-
-
-
-        
     </script>
+
+
+<?php if(isset($_GET["loi"])){
+$loi=$_GET["loi"];
+if($loi=="loi")
+{
+?>
+<script>alert("Mời bạn chọn thể loại khai báo");</script>
+<?php } else if($loi=="saimaxacthuc") {?>
+
+    <script>alert("Nhập sai mã xác thực");</script>
+    
+    <?php } else {?>
+        <script>alert("Mời bạn nhập đầy đủ thông tin");</script>
+    <?php } }?>
+
+<?php if(isset($_GET["thanhcong"])){?>
+
+    <script>alert("khai báo thành công");</script>
+<?php }?>
 </body>
 </html>
